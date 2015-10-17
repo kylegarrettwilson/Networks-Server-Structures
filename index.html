@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>IP Addresses</title>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"
+            type="text/javascript"></script>
+</head>
+<body>
+
+
+<h1 style="text-align: center">IP Addresses Around the World</h1>
+<div id="map" style="width: 1000px; height: 880px; margin: 0 auto;"></div>
+
+<script type="text/javascript">
+    var locations = [
+        ['Beijing', 39.9289,116.3883],
+        ['San Antonio', 29.4889,-98.3987],
+        ['Ashburn', 39.0437,-77.4875],
+        ['Oshawa', 43.8852,-78.8771],
+        ['Tokyo', 35.6850,139.7514],
+
+            ['Santa Monica', 34.0256,-118.4716],
+            ['Seattle', 47.4891,-122.2908],
+            ['Buffalo', 42.9864,-78.7279],
+            ['Shenzhen', 22.5333,114.1333],
+            ['Walnut', 34.0203,-117.8653],
+
+                ['Redmond', 47.6740,-122.1215],
+                ['Mountain View', 37.4192,-122.0574],
+                ['Munich', 48.1500,11.5833],
+                ['', 52.3667,4.9000],
+                ['Stockholm', 59.3333,18.0500]
+
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: new google.maps.LatLng(-40, 170),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(locations[i][0]);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+</script>
+</body>
+</html>
